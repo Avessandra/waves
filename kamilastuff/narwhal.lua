@@ -33,5 +33,5 @@ end
  
 -- Draw a coloured rectangle.
 function love.draw()
-	love.graphics.draw(narwhal, frames[currentFrame], 50, 50)
+	love.graphics.draw(narwhal, frames[currentFrame], 50, 50, 0, 0.3)
 end
