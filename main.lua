@@ -7,11 +7,10 @@ function love.load()
 	planets.load()
 	narwhal.load()
 	background.load()
-
 end
 
 function love.update( dt )
-	local speed = 100 * dt
+	local speed = 500 * dt
 
 	planets.update(speed)
 	background.update(speed)
