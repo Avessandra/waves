@@ -1,4 +1,5 @@
 local planets = require('planets')
+local narwhal = require('narwhal')
 
 function love.load()
 	-- our tiles
@@ -21,6 +22,7 @@ function love.load()
 	tile_h = 600
 
 	planets.load()
+	narwhal.load()
 
 end
 
@@ -48,7 +50,7 @@ function draw_map()
 				break
 			end
 		end
-	end
+end
 
 function love.update( dt )
 	local speed = 100 * dt
@@ -59,9 +61,12 @@ function love.update( dt )
 	if love.keyboard.isDown( "escape" ) then
 		love.event.quit()
 	end
+
+	narwhal.update(dt)
 end
 
 function love.draw()
 	draw_map()
 	planets.draw()
+	narwhal.draw()
 end
