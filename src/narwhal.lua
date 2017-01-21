@@ -21,11 +21,11 @@ function narwhal.load()
 		end
 end
 
-function narwhal.update(dt, planets)
+function narwhal.update(dt, planets, cam_speed)
 
     elapsed = elapsed + dt
-    if elapsed > 0.05 then
-        elapsed = elapsed - 0.05
+    if elapsed > (1 / (velocity * 0.1)) then
+        elapsed = 0
         if currentFrame == 9 then
              currentFrame = 1
         else
@@ -50,14 +50,19 @@ function narwhal.update(dt, planets)
 				y = planet.data.y - pos_y
 			}
 			local distance = math.sqrt((planet.data.x - pos_x)^2 + (planet.data.y - pos_y)^2)
-			if distance <= planet.data.size_par*4 then
+
+			if distance <= planet.data.size_par then
+				love.event.quit()
+			elseif distance <= planet.data.size_par*4 then
 				local narwhal_grad = math.atan2(narwhal_to_planet.y, narwhal_to_planet.x)
 				local gravity = planet.data.size_par / distance^2
 				rotation = lerp(rotation, narwhal_grad, gravity)
 				velocity = velocity+gravity*50
 			end
 		end
-		pos_x = pos_x + ( math.cos(rotation)) *velocity* dt - 100 * dt
+
+		velocity = velocity - (velocity*0.01*dt)
+		pos_x = pos_x + ( math.cos(rotation)) *velocity* dt - cam_speed
 		pos_y = pos_y + ( math.sin(rotation)) *velocity* dt
 
 end
@@ -65,7 +70,8 @@ end
 
 function narwhal.draw()
 	love.graphics.draw(narwhal_im, frames[currentFrame], pos_x, pos_y, math.rad(-10)+rotation, 0.3, 0.3, frameWidth/2, frameHeight/2)
-	love.graphics.circle("fill", pos_x, pos_y, 10)
+	-- deug circle
+	-- love.graphics.circle("fill", pos_x, pos_y, 2)
 end
 
 function lerp(a, b, factor)
@@ -78,6 +84,7 @@ function narwhal.reset()
 	pos_x = 400
 	pos_y = 40
 	rotation = 0
-	velocity = 100
+	velocity = 130
 end
+
 return narwhal

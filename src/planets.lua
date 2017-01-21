@@ -73,10 +73,12 @@ function planets.draw()
     local planet_image = planet_styles[planet.data.type]
     local sx, sy = planet.data.size_par*2/planet_image:getWidth(),planet.data.size_par*2/planet_image:getHeight()
     love.graphics.draw(planet_image,
-    planet.data.x, planet.data.y,
-    0,
-    sx,sy,
-    planet_image:getWidth()/2,planet_image:getHeight()/2)
+      planet.data.x, planet.data.y,
+      0,
+      sx,sy,
+      planet_image:getWidth()/2,planet_image:getHeight()/2)
+    -- deug circle
+    -- love.graphics.circle("fill", planet.data.x, planet.data.y, 2)
     love.graphics.circle("line", planet.data.x, planet.data.y, 2.2*planet.data.size_par)
     love.graphics.circle("line", planet.data.x, planet.data.y, 3*planet.data.size_par)
     love.graphics.circle("line", planet.data.x, planet.data.y, 4*planet.data.size_par)
