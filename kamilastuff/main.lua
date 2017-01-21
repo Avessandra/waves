@@ -1,7 +1,10 @@
+local planets = require('planets')
+local narwhal = require('narwhal')
+
 function love.load()
 	-- our tiles
 	tile = {}
-	tile[0] = love.graphics.newImage( "stars.png" )
+	tile[0] = love.graphics.newImage( "bgDark.png" )
 
 	map={
 	{0,0,0},
@@ -18,14 +21,17 @@ function love.load()
 	tile_w = 900
 	tile_h = 600
 
+	planets.load()
+	narwhal.load()
+
 end
- 
+
 function draw_map()
 	offset_x = map_x % tile_w
 	offset_y = map_y % tile_h
-	firstTile_x = 0 --math.floor(map_x / tile_w)
+	firstTile_x = 2 --math.floor(map_x / tile_w)
 	firstTile_y = math.floor(map_y / tile_h)
-	
+
 	x=1
 	y=1
 		while x do
@@ -33,29 +39,34 @@ function draw_map()
 			if x+firstTile_x >= 1 and x+firstTile_x <= map_w
 				then
 					love.graphics.draw(
-						tile[map[y+firstTile_y][x+firstTile_x]], 
+						tile[map[y+firstTile_y][x+firstTile_x]],
 						((x-1)*tile_w) - offset_x - tile_w/2)
 					x=x+1
-					print("normal condition", x, " ", y)
+					--print("normal condition", x, " ", y)
 					print("firstTile_x", firstTile_x)
 				else
-					print("else condition", x, " ", y)
+					--print("else condition", x, " ", y)
 					x=1
 				break
 			end
 		end
-	end
- 
+end
+
 function love.update( dt )
 	local speed = 100 * dt
 
 	map_x = map_x + speed
-	
+	planets.update(speed)
+
 	if love.keyboard.isDown( "escape" ) then
 		love.event.quit()
 	end
+
+	narwhal.update(dt)
 end
- 
+
 function love.draw()
 	draw_map()
+	planets.draw()
+	narwhal.draw()
 end

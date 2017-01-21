@@ -4,7 +4,7 @@ local narwhal = require('narwhal')
 function love.load()
 	-- our tiles
 	tile = {}
-	tile[0] = love.graphics.newImage( "stars.png" )
+	tile[0] = love.graphics.newImage( "bgDark.png" )
 
 	map={
 	{0,0,0},
@@ -29,7 +29,7 @@ end
 function draw_map()
 	offset_x = map_x % tile_w
 	offset_y = map_y % tile_h
-	firstTile_x = 0 --math.floor(map_x / tile_w)
+	firstTile_x = 2 --math.floor(map_x / tile_w)
 	firstTile_y = math.floor(map_y / tile_h)
 
 	x=1
@@ -43,7 +43,7 @@ function draw_map()
 						((x-1)*tile_w) - offset_x - tile_w/2)
 					x=x+1
 					--print("normal condition", x, " ", y)
-					--print("firstTile_x", firstTile_x)
+					print("firstTile_x", firstTile_x)
 				else
 					--print("else condition", x, " ", y)
 					x=1
