@@ -3,13 +3,13 @@
 default: build run
 
 buildclean:
-	@[[ ! -e waves.love ]] || rm waves.love
+	rm -f waves.love
 
 clean:
-	@[[ ! -e waves.love ]] || rm waves.love
-	@[[ ! -e pkg ]] || rm -r pkg
-	@[[ ! -e lib ]] || rm -r lib
-	@[[ ! -e temp ]] || rm -r temp
+	rm -f waves.love
+	rm -rf pkg
+	rm -rf lib
+	rm -rf temp
 
 build: buildclean
 	@zip -q -r -0 waves.love assets/*
