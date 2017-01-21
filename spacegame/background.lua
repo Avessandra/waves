@@ -38,7 +38,7 @@ function draw_map()
 						((x-1)*tile_w) - offset_x - tile_w/2)
 					x=x+1
 					--print("normal condition", x, " ", y)
-					print("firstTile_x", firstTile_x)
+					--print("firstTile_x", firstTile_x)
 				else
 					--print("else condition", x, " ", y)
 					x=1
