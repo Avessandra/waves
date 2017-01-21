@@ -17,7 +17,7 @@ function background.load()
                                -- Otherwise, the tiles will just pop into view, and we don't want that.
 	map_display_w = 20
 	map_display_h = 15
-	tile_w = love.graphics.getWidth()
+	tile_w = tile[0]:getWidth()
 	tile_h = love.graphics.getHeight()
 end
 
