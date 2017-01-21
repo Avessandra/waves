@@ -19,7 +19,7 @@ function narwhal.load()
     pos_x=30
     pos_y=30
 end
- 
+
 -- Increase the size of the rectangle every frame.
 function narwhal.update(dt)
     elapsed = elapsed + dt
@@ -33,11 +33,11 @@ function narwhal.update(dt)
     endrrentFrame = currentFrame + 1
     end
 
-    if love.keyboard.isDown("down") then
+    if love.keyboard.isDown("down") or love.keyboard.isDown("s") then
         pos_y = pos_y + 1
     end
 
-    if love.keyboard.isDown("up") then
+    if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
     	pos_y = pos_y - 1
    	end
 
@@ -47,9 +47,8 @@ function narwhal.update(dt)
     if pos_y < -20 or pos_y > (love.graphics.getHeight()-40) then
         love.event.quit()
     end 
-   	
 end
- 
+
 -- Draw a coloured rectangle.
 function narwhal.draw()
 	love.graphics.draw(narwhal, frames[currentFrame], pos_x, pos_y, 0, 0.3)
