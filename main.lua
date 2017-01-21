@@ -1,6 +1,6 @@
-local planets = require('planets')
-local narwhal = require('narwhal')
-local background = require('background')
+local planets = require('src/planets')
+local narwhal = require('src/narwhal')
+local background = require('src/background')
 
 function love.load()
 	world = love.physics.newWorld(0, 0, true)

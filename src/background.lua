@@ -1,10 +1,9 @@
-local planets = require('planets')
-local narwhal = require('narwhal')
+local background = {}
 
-function love.load()
+function background.load()
 	-- our tiles
 	tile = {}
-	tile[0] = love.graphics.newImage( "bgDark.png" )
+	tile[0] = love.graphics.newImage( "assets/bgDark.png" )
 
 	map={
 	{0,0,0},
@@ -14,22 +13,18 @@ function love.load()
 	map_h = #map -- Obtains the height of the map
 	map_x = 0
 	map_y = 0
-	map_display_buffer = 6 -- We have to buffer one tile before and behind our viewpoint.
+	map_display_buffer = 1 -- We have to buffer one tile before and behind our viewpoint.
                                -- Otherwise, the tiles will just pop into view, and we don't want that.
 	map_display_w = 20
 	map_display_h = 15
-	tile_w = 900
-	tile_h = 600
-
-	planets.load()
-	narwhal.load()
-
+	tile_w = 1800
+	tile_h = tile[0]:getHeight()
 end
 
 function draw_map()
 	offset_x = map_x % tile_w
 	offset_y = map_y % tile_h
-	firstTile_x = 2 --math.floor(map_x / tile_w)
+	firstTile_x = 1 --math.floor(map_x / tile_w)
 	firstTile_y = math.floor(map_y / tile_h)
 
 	x=1
@@ -43,7 +38,7 @@ function draw_map()
 						((x-1)*tile_w) - offset_x - tile_w/2)
 					x=x+1
 					--print("normal condition", x, " ", y)
-					print("firstTile_x", firstTile_x)
+					--print("firstTile_x", firstTile_x)
 				else
 					--print("else condition", x, " ", y)
 					x=1
@@ -52,21 +47,18 @@ function draw_map()
 		end
 end
 
-function love.update( dt )
-	local speed = 100 * dt
+function background.update( speed )
+--	local speed = 100 * dt
 
 	map_x = map_x + speed
-	planets.update(speed)
 
 	if love.keyboard.isDown( "escape" ) then
 		love.event.quit()
 	end
-
-	narwhal.update(dt)
 end
 
-function love.draw()
+function background.draw()
 	draw_map()
-	planets.draw()
-	narwhal.draw()
 end
+
+return background
