@@ -34,11 +34,11 @@ function narwhal.update(dt)
     end
 
     if love.keyboard.isDown("down") or love.keyboard.isDown("s") then
-        pos_y = pos_y + 1
+        pos_y = pos_y + 100*dt
     end
 
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
-    	pos_y = pos_y - 1
+    	pos_y = pos_y - 100*dt
    	end
 
     print("Height", love.graphics.getHeight())
