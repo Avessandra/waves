@@ -12,10 +12,10 @@ end
 function love.update( dt )
 	local speed = 500 * dt
 
+	world:update(dt)
 	planets.update(speed)
 	background.update(speed)
-	narwhal.update(dt)
-	world:update(dt)
+	narwhal.update(dt, planets)
 end
 
 function love.draw()
