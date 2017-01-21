@@ -13,10 +13,6 @@ function background.load()
 	map_h = #map -- Obtains the height of the map
 	map_x = 0
 	map_y = 0
-	map_display_buffer = 1 -- We have to buffer one tile before and behind our viewpoint.
-                               -- Otherwise, the tiles will just pop into view, and we don't want that.
-	map_display_w = 20
-	map_display_h = 15
 	tile_w = tile[0]:getWidth()
 	tile_h = love.graphics.getHeight()
 end
