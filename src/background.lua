@@ -19,6 +19,7 @@ end
 function background.draw()
 	local offset_x = map_x % tile_w
 
+	love.graphics.setColor(255, 255, 255)
 	for tile_x = 1, map_w do
 		love.graphics.draw(
 			image,

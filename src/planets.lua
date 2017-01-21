@@ -1,8 +1,8 @@
 local planets = {}
 
-local gravity_color1 = {1 = {77, 255, 136}, 2 = {255, 0, 0}, 3 = {204, 0, 255}}
-local gravity_color2 = {"a" = {102, 255, 153}, "b" = {255, 77, 77}, "c" = {219, 77, 255}}
-local gravity_color3 = {"a" = {128, 255, 170}, "b" = {255, 153, 153}, "c" = {235, 153, 255}}
+local gravity_color1 = {{77, 255, 136}, {255, 0, 0}, {204, 0, 255}}
+local gravity_color2 = {{102, 255, 153}, {255, 77, 77},{219, 77, 255}}
+local gravity_color3 = {{128, 255, 170}, {255, 153, 153}, {235, 153, 255}}
 
 planets.info = {}
 planets.counter = 0
@@ -85,7 +85,7 @@ function planets.draw()
     sx,sy,
     planet_image:getWidth()/2,planet_image:getHeight()/2)
     love.graphics.setColor(planet.data.color1[1], planet.data.color1[2], planet.data.color1[3])
-    --love.graphics.setColor(77, 255, 136)
+    -- love.graphics.setColor(77, 255, 136)
     --print(planet.data.color1)
     love.graphics.circle("line", planet.data.x, planet.data.y, 2.2*planet.data.size_par)
     love.graphics.circle("line", planet.data.x, planet.data.y, 3*planet.data.size_par)
