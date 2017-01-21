@@ -1,4 +1,3 @@
--- Load some default values for our rectangle.
 function love.load()
 	narwhal = love.graphics.newImage('nwm.png')
     frameWidth = 512
@@ -15,6 +14,8 @@ function love.load()
              }
     currentFrame = 1
     elapsed = 0
+    x=30
+    y=30
 end
  
 -- Increase the size of the rectangle every frame.
@@ -29,9 +30,18 @@ function love.update(dt)
         end
     endrrentFrame = currentFrame + 1
     end
+
+    if love.keyboard.isDown("down") then
+        y = y + 1
+    end
+
+    if love.keyboard.isDown("up") then
+    	y = y - 1
+   	end
+   	
 end
  
 -- Draw a coloured rectangle.
 function love.draw()
-	love.graphics.draw(narwhal, frames[currentFrame], 50, 50, 0, 0.3)
+	love.graphics.draw(narwhal, frames[currentFrame], x, y, 0, 0.3)
 end
