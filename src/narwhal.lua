@@ -12,15 +12,9 @@ function narwhal.load()
 	  local frameHeight = 256
 	  local imageWidth = narwhal_im:getWidth()
 	  local imageHeight = narwhal_im:getHeight()
-	  table.insert(frames, love.graphics.newQuad(0, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-	  table.insert(frames, love.graphics.newQuad(512, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-	  table.insert(frames, love.graphics.newQuad(1024, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-	  table.insert(frames, love.graphics.newQuad(1536, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-	  table.insert(frames, love.graphics.newQuad(2048, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-	  table.insert(frames, love.graphics.newQuad(2560, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-    table.insert(frames, love.graphics.newQuad(3072, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-    table.insert(frames, love.graphics.newQuad(3584, 0, frameWidth, frameHeight, imageWidth, imageHeight))
-    table.insert(frames, love.graphics.newQuad(4096, 0, frameWidth, frameHeight, imageWidth, imageHeight))
+		for i = 0, 8 do
+		  table.insert(frames, love.graphics.newQuad(i * 512, 0, frameWidth, frameHeight, imageWidth, imageHeight))
+		end
 end
 
 function narwhal.update(dt, planets)
