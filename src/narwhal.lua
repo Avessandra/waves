@@ -69,7 +69,7 @@ end
 
 
 function narwhal.draw()
-	love.graphics.draw(narwhal_im, frames[currentFrame], pos_x, pos_y)
+	love.graphics.draw(narwhal_im, frames[currentFrame], pos_x, pos_y, 0, 0.3)
 end
 
 return narwhal
