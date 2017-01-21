@@ -1,7 +1,7 @@
 local narwhal = {}
 
 function narwhal.load()
-	narwhal = love.graphics.newImage('nwm.png')
+	narwhal = love.graphics.newImage('assets/nwm.png')
     frameWidth = 512
     frameHeight = 256
     imageWidth = narwhal:getWidth()
