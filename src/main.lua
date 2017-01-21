@@ -3,6 +3,7 @@ local narwhal = require('narwhal')
 local background = require('background')
 
 function love.load()
+	world = love.physics.newWorld(0, 0, true)
 	planets.load()
 	narwhal.load()
 	background.load()
@@ -15,6 +16,7 @@ function love.update( dt )
 	planets.update(speed)
 	background.update(speed)
 	narwhal.update(dt)
+	world:update(dt)
 end
 
 function love.draw()
