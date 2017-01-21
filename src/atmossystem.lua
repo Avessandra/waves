@@ -1,7 +1,7 @@
 local atmossystem = {}
 
 function atmossystem.load()
-  atmossystem.music = love.audio.newSource("assets/bassbeat.mp3") -- bpm 130
+  atmossystem.music = love.audio.newSource("assets/bassbeat.mp3", "static") -- bpm 130
   --atmossystem.music = love.audio.newSource("assets/space3.mp3") -- bpm 140
   atmossystem.music:setLooping(true)
   atmossystem.music:setVolume(0.2)
