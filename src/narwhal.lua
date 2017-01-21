@@ -41,9 +41,6 @@ function narwhal.update(dt)
     	pos_y = pos_y - 100*dt
    	end
 
-    print("Height", love.graphics.getHeight())
-    print("y-pos", pos_y)
-
     if pos_y < -20 or pos_y > (love.graphics.getHeight()-40) then
         love.event.quit()
     end
