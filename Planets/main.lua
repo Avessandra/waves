@@ -5,8 +5,9 @@ function love.load()
 end
 
 
-function love.update()
-  planets.update()
+function love.update(dt)
+  local speed = 100 * dt
+  planets.update(speed)
 end
 
 function love.draw()
