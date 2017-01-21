@@ -20,6 +20,9 @@ function narwhal.load()
 	  table.insert(frames, love.graphics.newQuad(1536, 0, frameWidth, frameHeight, imageWidth, imageHeight))
 	  table.insert(frames, love.graphics.newQuad(2048, 0, frameWidth, frameHeight, imageWidth, imageHeight))
 	  table.insert(frames, love.graphics.newQuad(2560, 0, frameWidth, frameHeight, imageWidth, imageHeight))
+      table.insert(frames, love.graphics.newQuad(3072, 0, frameWidth, frameHeight, imageWidth, imageHeight))
+      table.insert(frames, love.graphics.newQuad(3584, 0, frameWidth, frameHeight, imageWidth, imageHeight))
+      table.insert(frames, love.graphics.newQuad(4096, 0, frameWidth, frameHeight, imageWidth, imageHeight))
 end
 
 function narwhal.update(dt)
@@ -27,7 +30,7 @@ function narwhal.update(dt)
     elapsed = elapsed + dt
     if elapsed > 0.05 then
         elapsed = elapsed - 0.05
-        if currentFrame == 6 then
+        if currentFrame == 9 then
              currentFrame = 1
         else
             currentFrame = currentFrame + 1
