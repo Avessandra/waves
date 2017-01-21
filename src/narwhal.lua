@@ -46,7 +46,7 @@ function narwhal.update(dt)
 
     if pos_y < -20 or pos_y > (love.graphics.getHeight()-40) then
         love.event.quit()
-    end 
+    end
 end
 
 -- Draw a coloured rectangle.
