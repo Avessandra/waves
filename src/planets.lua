@@ -1,10 +1,8 @@
 local planets = {}
 
-local gravity_color = {
-  gruen = {love.graphics.setColor(77, 255, 136), love.graphics.setColor(102, 255, 153), love.graphics.setColor(128, 255, 170)},
-  rot = {love.graphics.setColor(255, 0, 0), love.graphics.setColor(255, 77, 77), love.graphics.setColor(255, 153, 153)},
-  lila = {love.graphics.setColor(204, 0, 255), love.graphics.setColor(219, 77, 255), love.graphics.setColor(235, 153, 255)}
-}
+local gravity_color1 = {{77, 255, 136}, {255, 0, 0}, {204, 0, 255}}
+local gravity_color2 = {{102, 255, 153}, {255, 77, 77},{219, 77, 255}}
+local gravity_color3 = {{128, 255, 170}, {255, 153, 153}, {235, 153, 255}}
 
 planets.info = {}
 planets.counter = 0
@@ -35,11 +33,15 @@ function planets.update(speed)
 end
 
 function planets.new_planet(old_planet)
-  local x_new = 95 + love.math.random(0,95)
+  local x_new = 220 + love.math.random(0,95)
   local y_new = love.math.random(0, love.graphics.getHeight())
-  local size_par_new = love.math.random(20,40)
+  local size_par_new = love.math.random(30,70)
   local choose_color = love.math.random(1,3)
   local type = love.math.random(1,#planet_styles)
+  --local color1 = gravity_color1[1]
+  --local color2 = gravity_color2[choose_color]
+  --local color3 = gravity_color3[choose_color]
+  --print(gravity_color1[1])
   if old_planet ~= nil then
     while math.sqrt(x_new^2 + (y_new - old_planet.data.y)^2) < (size_par_new + old_planet.data.size_par)*4 do
           y_new = love.math.random(0, love.graphics.getHeight())
@@ -49,8 +51,10 @@ function planets.new_planet(old_planet)
         x = old_planet.data.x + x_new,
         y = y_new,
         size_par = size_par_new,
-        type = type
-        --color1 = gravity_color[choose_color][1]
+        type = type,
+        color1 = gravity_color1[choose_color],
+        color2 = gravity_color2[choose_color],
+        color3 = gravity_color3[choose_color]
       }
     }
   else
@@ -59,7 +63,10 @@ function planets.new_planet(old_planet)
         x = x_new,
         y = y_new,
         size_par = size_par_new,
-        type = type
+        type = type,
+        color1 = gravity_color1[choose_color],
+        color2 = gravity_color2[choose_color],
+        color3 = gravity_color3[choose_color]
         --color1 = gravity_color[choose_color][1]
       }
     }
@@ -77,8 +84,11 @@ function planets.draw()
       0,
       sx,sy,
       planet_image:getWidth()/2,planet_image:getHeight()/2)
+
     -- deug circle
     -- love.graphics.circle("fill", planet.data.x, planet.data.y, 2)
+    
+    love.graphics.setColor(planet.data.color1[1], planet.data.color1[2], planet.data.color1[3])
     love.graphics.circle("line", planet.data.x, planet.data.y, 2.2*planet.data.size_par)
     love.graphics.circle("line", planet.data.x, planet.data.y, 3*planet.data.size_par)
     love.graphics.circle("line", planet.data.x, planet.data.y, 4*planet.data.size_par)
