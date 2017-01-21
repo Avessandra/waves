@@ -7,12 +7,12 @@ local pos_y
 local narwhal_im
 local rotation
 local velocity
+local frameWidth = 512
+local frameHeight = 256
 
 function narwhal.load()
 		narwhal.reset()
 	 	narwhal_im = love.graphics.newImage('assets/nwm.png')
-	  local frameWidth = 512
-	  local frameHeight = 256
 	  local imageWidth = narwhal_im:getWidth()
 	  local imageHeight = narwhal_im:getHeight()
 		for i = 0, 8 do
@@ -51,46 +51,39 @@ function narwhal.update(dt, planets)
     end
 
 		for _, planet in ipairs(planets.info) do
-			if math.sqrt((planet.data.x - pos_x)^2 + (planet.data.y - pos_y)^2) <= planet.data.size_par*4 then
-				local narwhal_to_planet = {
-					x = planet.data.x - pos_x,
-					y = planet.data.y - pos_y
-				}
-				local narwhal_grad = math.atan2(narwhal_to_planet.y, narwhal_to_planet.x)
-				rotation = narwhal_grad
-				pos_x = pos_x + dt*narwhal_to_planet.x
-				pos_y = pos_y + dt*narwhal_to_planet.y
-				-- if planet.data.y <= pos_y then
-				-- 	if pos_x <= planet.data.x then
-				--
-				-- 	else
-				--
-				-- 	end
-				-- else
-				-- 	if pos_x <= planet.data.x then
-				--
-				-- 	else
-				--
-				-- 	end
-				-- end
+			local narwhal_to_planet = {
+				x = planet.data.x - pos_x,
+				y = planet.data.y - pos_y
+			}
+			local distance = math.sqrt((planet.data.x - pos_x)^2 + (planet.data.y - pos_y)^2)
+			if distance <= planet.data.size_par*4 then
+				local narwhal_grad = math.atan2(narwhal_to_planet.y, narwhal_to_planet.x)-math.pi/2
+				local gravity = planet.data.size_par / distance^2
+				rotation = lerp(rotation, narwhal_grad, gravity)
+				--pos_x = pos_x + dt*narwhal_to_planet.x
+				--pos_y = pos_y + dt*narwhal_to_planet.y
 			end
 		end
-		pos_x = pos_x + ( math.cos(rotation) * velocity - math.sin(rotation) * velocity) * dt
-		pos_y = pos_y + ( math.sin(rotation) * velocity - math.cos(rotation) * velocity) * dt
+		pos_x = pos_x + ( math.cos(rotation)) *velocity* dt -velocity*dt
+		pos_y = pos_y + ( math.sin(rotation)) *velocity* dt
 
 end
 
 
 function narwhal.draw()
-	love.graphics.draw(narwhal_im, frames[currentFrame], pos_x, pos_y, math.rad(-20)+rotation, 0.3)
+	love.graphics.draw(narwhal_im, frames[currentFrame], pos_x, pos_y, math.rad(-20)+rotation, 0.3, 0.3, frameWidth/2, frameHeight/2)
+end
+
+function lerp(a, b, factor)
+	return a+(b-a)*factor
 end
 
 function narwhal.reset()
 	currentFrame = 1
 	elapsed = 0
-	pos_x = 40
+	pos_x = 400
 	pos_y = 40
 	rotation = 0
-	velocity = 200
+	velocity = 100
 end
 return narwhal
