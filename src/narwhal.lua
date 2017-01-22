@@ -1,11 +1,11 @@
+local Vector = require("src/lib/vector")
+
 local narwhal = {}
 local frames = {}
 local currentFrame
 local elapsed
-local pos_x
-local pos_y
 local narwhal_im
-local rotation
+local position
 local velocity
 local frameWidth = 512
 local frameHeight = 256
@@ -22,9 +22,8 @@ function narwhal.load()
 end
 
 function narwhal.update(dt, planets, cam_speed)
-
     elapsed = elapsed + dt
-    if elapsed > (1 / (velocity * 0.1)) then
+    if elapsed > (1 / (velocity:length() * 0.1)) then
         elapsed = 0
         if currentFrame == 9 then
              currentFrame = 1
@@ -34,60 +33,54 @@ function narwhal.update(dt, planets, cam_speed)
     end
 
     if love.keyboard.isDown("down") or love.keyboard.isDown("s") then
-        rotation = rotation + rotspeed*dt
+				velocity = velocity:rotate(rotspeed*dt)
     end
 
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
-    	rotation = rotation - rotspeed*dt
+				velocity = velocity:rotate(-rotspeed*dt)
    	end
-
-    if pos_y < 40 or pos_y > (love.graphics.getHeight()-40) or
-		 pos_x < 40 or pos_x > (love.graphics.getWidth()-40) then
+    if position.y < -20 or position.y > love.graphics.getHeight() + 20 or
+			position.x < 0 then
         love.event.quit()
     end
 
 		for _, planet in ipairs(planets.info) do
-			local narwhal_to_planet = {
-				x = planet.data.x - pos_x,
-				y = planet.data.y - pos_y
-			}
-			local distance = math.sqrt((planet.data.x - pos_x)^2 + (planet.data.y - pos_y)^2)
+			local narwhal_to_planet = Vector(planet.data.x, planet.data.y) - position
+			local distance = narwhal_to_planet:length()
 
 			if distance <= planet.data.size_par then
 				love.event.quit()
 			elseif distance <= planet.data.size_par*4 then
-				local narwhal_grad = math.atan2(narwhal_to_planet.y, narwhal_to_planet.x)
+				local target_angle = narwhal_to_planet:getRadian()
 				local gravity = planet.data.size_par / distance^2
-				rotation = lerp(rotation, narwhal_grad, gravity * 2)
-				velocity = velocity+gravity*100
+				local rotation = velocity:normalize():lerp(narwhal_to_planet:normalize(), gravity * 5):getRadian()
+
+				velocity = Vector.from_radians(rotation) * velocity:length()
+				velocity = velocity + gravity * 250
 			end
 		end
 
-		velocity = velocity - (velocity*0.01*dt)
-		pos_x = pos_x + ( math.cos(rotation)) *velocity* dt - cam_speed
-		pos_y = pos_y + ( math.sin(rotation)) *velocity* dt
-
+		velocity = velocity - dt * 0.01
+		position = position + velocity * dt - Vector(cam_speed, 0)
 end
 
 
 function narwhal.draw()
 	love.graphics.setColor(255,255,255)
-	love.graphics.draw(narwhal_im, frames[currentFrame], pos_x, pos_y, math.rad(-10)+rotation, 0.3, 0.3, frameWidth/2, frameHeight/2)
+	love.graphics.draw(narwhal_im, frames[currentFrame], position.x, position.y, math.rad(-10)+velocity:getRadian(), 0.3, 0.3, frameWidth/2, frameHeight/2)
 	-- deug circle
 	-- love.graphics.circle("fill", pos_x, pos_y, 2)
 end
 
 function lerp(a, b, factor)
-	return a+(b-a)*factor
+	return a + (b-a) * factor
 end
 
 function narwhal.reset()
 	currentFrame = 1
 	elapsed = 0
-	pos_x = 200
-	pos_y = 500
-	rotation = 0
-	velocity = 200
+	position = Vector(200, love.graphics.getWidth()/2)
+	velocity = Vector(200, 0)
 end
 
 return narwhal

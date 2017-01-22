@@ -54,6 +54,12 @@ function love.mousepressed(x, y)
 	end
 end
 
+function love.keypressed(key, scancode, isrepeat)
+		if gamestate == "menu" and key == "space" then
+			gamestate = "playing"
+		end
+end
+
 
 function button_click(x, y)
 	if x > 200 and x < (200 + button:getWidth())
