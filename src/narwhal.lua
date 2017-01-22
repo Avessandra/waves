@@ -8,6 +8,7 @@ local narwhal_im
 local frameWidth = 512
 local frameHeight = 256
 local rotspeed = 1
+dead = false
 
 
 function narwhal.load()
@@ -21,6 +22,7 @@ function narwhal.load()
 end
 
 function narwhal.update(dt, planets, cam_speed)
+		if dead then return end
     elapsed = elapsed + dt
     if elapsed > (1 / (narwhal.velocity:length() * 0.1)) then
         elapsed = 0
@@ -40,7 +42,7 @@ function narwhal.update(dt, planets, cam_speed)
    	end
     if narwhal.position.y < -20 or narwhal.position.y > love.graphics.getHeight() + 20 or
 			narwhal.position.x < 0 then
-        love.event.quit()
+        dead = true
     end
 
 		for _, planet in ipairs(planets.info) do
@@ -48,7 +50,7 @@ function narwhal.update(dt, planets, cam_speed)
 			local distance = narwhal_to_planet:length()
 
 			if distance <= planet.data.size_par then
-				love.event.quit()
+				dead = true
 			elseif distance <= planet.data.size_par*4 then
 				local target_angle = narwhal_to_planet:getRadian()
 				local gravity = planet.data.size_par / distance^2
@@ -65,6 +67,10 @@ end
 
 
 function narwhal.draw()
+	if dead then
+		love.graphics.setColor(255,255,255)
+		love.graphics.print("GAME OVER", narwhal.position.x, narwhal.position.y, 0, 10, 10)
+	end
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(narwhal_im, frames[currentFrame], narwhal.position.x, narwhal.position.y, math.rad(-10)+narwhal.velocity:getRadian(), 0.3, 0.3, frameWidth/2, frameHeight/2)
 	-- deug circle
@@ -80,6 +86,7 @@ function narwhal.reset()
 	elapsed = 0
 	narwhal.position = Vector(200, love.graphics.getWidth()/2)
 	narwhal.velocity = Vector(200, 0)
+	dead = false
 end
 
 return narwhal
