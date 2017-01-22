@@ -71,7 +71,7 @@ function narwhal.update(dt, planets, cam_speed)
 
 	if not dead then
 		score = ("score: " .. dt * 153343)
-	else 
+	else
 		score = score
 	end
 end
@@ -80,12 +80,12 @@ end
 function narwhal.draw()
 	if dead then
 		love.graphics.setColor(255,255,255)
-		love.graphics.print("GAME OVER", narwhal.position.x, narwhal.position.y, 0, 10, 10)
+		love.graphics.print("GAME OVER", love.graphics.getWidth() * 0.5,love.graphics.getHeight() * 0.5, 0, 10, 10, 20, 20)
 		-- Draw the particle system at the center of the game window.
-		love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)
+		love.graphics.draw(psystem, narwhal.position.x, narwhal.position.x)
 	end
 	love.graphics.setColor(255,255,255)
-	local scale = 0.3 + pulse/8
+	local scale = 0.3 + pulse/16
 	love.graphics.draw(narwhal_im, frames[currentFrame], narwhal.position.x, narwhal.position.y, math.rad(-10)+narwhal.velocity:getRadian(), scale, scale, frameWidth/2, frameHeight/2)
 	love.graphics.print(score, love.graphics.getWidth()*0.8, 50)
 	-- deug circle
@@ -108,10 +108,10 @@ function narwhal.death()
 	dead = true
 	psystem = love.graphics.newParticleSystem(narwhal_part, 500)
 	psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
-	psystem:setEmissionRate(5)
+	psystem:setEmissionRate(50)
 	psystem:setSizeVariation(1)
-	psystem:setLinearAcceleration(-20, -20, 20, 20) -- Random movement in all directions.
-	psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0) -- Fade to transparency.
+	psystem:setLinearAcceleration(-200, -200, 200, 200) -- Random movement in all directions.
+	psystem:setColors(255, 0, 0, 255, 255, 255, 0, 0) -- Fade to transparency.
 end
 
 return narwhal
