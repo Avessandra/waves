@@ -39,7 +39,7 @@ function love.update( dt )
 	end
 
 	if love.keyboard.isDown("b") and gamestate=="menu" then
-		gamestate="playing"
+		atmossystem.rotateMusic()
 	end
 
 	rules_timer = rules_timer + dt
