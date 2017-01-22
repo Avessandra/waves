@@ -16,6 +16,7 @@ function love.load()
 	atmossystem.load()
 	gamestate = "menu"
 	button = love.graphics.newImage('assets/playBtn.png')
+	beat_change = love.graphics.newImage('assets/beatBtn.png')
 	logo = love.graphics.newImage('assets/logo.png')
 end
 
@@ -55,7 +56,8 @@ function love.draw()
 			0,
 			1, 1,
 			logo:getWidth()/2, logo:getHeight()/2)
-		love.graphics.draw(button, 100, 100, 0, 0.8)
+		love.graphics.draw(button, 100, 100, 0, 0.6)
+		love.graphics.draw(beat_change, 100, 300, 0, 0.5)
 	end
 end
 
@@ -72,8 +74,12 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 function button_click(x, y)
-	if x > 100 and x < (100 + (button:getWidth()/0.8))
-	and y > 100 and y < (100 + (button:getHeight()/0.8)) then
+	if x > 100 and x < (100 + (button:getWidth()*0.6))
+	and y > 100 and y < (100 + (button:getHeight()*0.6)) then
 		gamestate = "playing"
+	elseif x > 100 and x < (100 + (beat_change:getWidth()*0.5))
+	and y > 300 and y < (300 + (beat_change:getHeight()*0.5)) then
+		print("beat_change", x, y)
+
 	end
 end
