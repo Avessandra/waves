@@ -40,7 +40,7 @@ function narwhal.update(dt, planets, cam_speed)
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
     	rotation = rotation - rotspeed*dt
    	end
-    if pos_y < -20 or pos_y > (love.graphics.getHeight()-40) then
+    if pos_y < 40 or pos_y > (love.graphics.getHeight()-40) or pos_x < 40 or pos_x > (love.graphics.getWidth()-40) then
         love.event.quit()
     end
 
@@ -81,8 +81,8 @@ end
 function narwhal.reset()
 	currentFrame = 1
 	elapsed = 0
-	pos_x = 400
-	pos_y = 40
+	pos_x = 200
+	pos_y = 500
 	rotation = 0
 	velocity = 130
 end
