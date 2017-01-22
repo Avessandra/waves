@@ -12,7 +12,7 @@ local current_rule = 1
 
 function love.load()
   math.randomseed(os.time())
-  
+
 	world = love.physics.newWorld(0, 0, true)
 	planets.load()
 	narwhal.load()
@@ -27,6 +27,7 @@ function love.load()
 		love.graphics.newImage('assets/basicRules2.png'),
 		love.graphics.newImage('assets/basicRules3.png'),
 		love.graphics.newImage('assets/basicRules4.png'),
+		love.graphics.newImage('assets/basicRule5.png')
 	}
 end
 
@@ -42,7 +43,7 @@ function love.update( dt )
 
 	rules_timer = rules_timer + dt
 
-	if rules_timer >= 4 * 60/ atmossystem.bpm then
+	if rules_timer >= 4 * 60 / atmossystem.bpm then
 		current_rule = current_rule + 1
 		if current_rule > #rules then current_rule = 1 end
 		rules_timer = 0
@@ -55,7 +56,6 @@ function love.update( dt )
 		-- the nearer the player is to the right side of the screen, the more skill he has
 		player_skill = lerp(1, 0,
 			((love.graphics.getWidth() - narwhal.position.x)/love.graphics.getWidth()))^4
-		print(player_skill)
 		cam_speed = (difficulty + player_skill * narwhal.velocity:length() * 2) * dt
 
 		world:update(dt)

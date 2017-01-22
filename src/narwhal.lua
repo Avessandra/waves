@@ -73,7 +73,7 @@ function narwhal.update(dt, planets, cam_speed)
 	if not dead then
 		score_counter = (math.floor(score_counter + dt * 1353) + 725)
 		score = ("score: " .. score_counter)
-	else 
+	else
 		score = score
 	end
 end
@@ -90,7 +90,7 @@ function narwhal.draw()
 	local scale = 0.3 + pulse/16
 	love.graphics.draw(narwhal_im, frames[currentFrame], narwhal.position.x, narwhal.position.y, math.rad(-10)+narwhal.velocity:getRadian(), scale, scale, frameWidth/2, frameHeight/2)
 	love.graphics.print(score, love.graphics.getWidth()*0.8, 50)
-	-- deug circle
+	-- debug circle
 	-- love.graphics.circle("fill", pos_x, pos_y, 2)
 end
 

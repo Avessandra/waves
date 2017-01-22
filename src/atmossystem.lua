@@ -1,5 +1,4 @@
 local atmossystem = {}
-pulse = 0
 local musiclist
 local currentMusic
 
@@ -15,7 +14,6 @@ function atmossystem.load()
 
   atmossystem.bpm = 140
   atmossystem.timer = 0
-  atmossystem.cooldown = 0
 
   atmossystem.colortable = {}
 end
@@ -25,20 +23,15 @@ function atmossystem.update(dt)
   atmossystem.colortable.g = 128*(1+(math.sin(2+love.timer.getTime())))
   atmossystem.colortable.b = 128*(1+(math.sin(4+love.timer.getTime())))
   atmossystem.timer = atmossystem.timer + dt
-  atmossystem.cooldown = atmossystem.cooldown - dt
-  if atmossystem.timer > 60/atmossystem.bpm then
-    love.graphics.setColor(atmossystem.colortable.r, atmossystem.colortable.g, atmossystem.colortable.b)
 
+  love.graphics.setColor(atmossystem.colortable.r, atmossystem.colortable.g, atmossystem.colortable.b)
+
+  if atmossystem.timer >= 60/atmossystem.bpm then
     atmossystem.timer = 0
     pulse = 1
-    atmossystem.cooldown = 0.2
   end
-  if atmossystem.cooldown < 0 then
-    love.graphics.setColor(235, 255, 255)
-  end
-  if pulse > 0 then
-    pulse = pulse - 2*dt
-  end
+
+  pulse = math.max(pulse - 2*dt, 0)
 end
 
 function atmossystem.rotateMusic()
@@ -46,6 +39,9 @@ function atmossystem.rotateMusic()
   if currentMusic > #musiclist then currentMusic = 1 end
 
   if atmossystem.music then atmossystem.music:stop() end
+  atmossystem.timer = 0
+  pulse = 0
+
   atmossystem.music = musiclist[currentMusic]
   atmossystem.music:setLooping(true)
   atmossystem.music:setVolume(0.4)
