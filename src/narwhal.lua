@@ -8,11 +8,7 @@ local narwhal_im
 local frameWidth = 512
 local frameHeight = 256
 local rotspeed = 1
-<<<<<<< HEAD
-local death = false
-=======
 dead = false
->>>>>>> 048946e334d480cf4ac59834f0cf1b27519f6d5c
 
 
 function narwhal.load()
