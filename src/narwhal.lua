@@ -69,6 +69,7 @@ end
 
 
 function narwhal.draw()
+	love.graphics.setColor(255,255,255)
 	love.graphics.draw(narwhal_im, frames[currentFrame], pos_x, pos_y, math.rad(-10)+rotation, 0.3, 0.3, frameWidth/2, frameHeight/2)
 	-- deug circle
 	-- love.graphics.circle("fill", pos_x, pos_y, 2)

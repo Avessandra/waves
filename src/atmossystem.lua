@@ -1,4 +1,5 @@
 local atmossystem = {}
+pulse = 0
 
 function atmossystem.load()
   atmossystem.music = love.audio.newSource("assets/bassbeat.mp3", "static") -- bpm 130
@@ -24,10 +25,14 @@ function atmossystem.update(dt)
     love.graphics.setColor(atmossystem.colortable.r, atmossystem.colortable.g, atmossystem.colortable.b)
 
     atmossystem.timer = 0
+    pulse = 1
     atmossystem.cooldown = 0.2
   end
   if atmossystem.cooldown < 0 then
     love.graphics.setColor(235, 255, 255)
+  end
+  if pulse > 0 then
+    pulse = pulse - dt
   end
 end
 

@@ -21,7 +21,10 @@ function planets.load()
   planets.counter = planets.counter + 1
 end
 
-function planets.update(speed)
+function planets.update(dt, speed)
+  for index, planet in ipairs(planets.info) do
+    --planet.data.size_par = planet.data.size_par + math.cos(pulse) * 30 * dt
+  end
   for i = 1, planets.counter do
     planets.info[i].data.x = planets.info[i].data.x - speed
   end
@@ -72,20 +75,22 @@ end
 function planets.draw()
   for index, planet in ipairs(planets.info) do
     local planet_image = planet_styles[planet.data.type]
+    local radius_add = math.sin(pulse) * 15
     local sx, sy = planet.data.size_par*2/planet_image:getWidth(),planet.data.size_par*2/planet_image:getHeight()
+
+    --love.graphics.setColor(planet.data.color1[1], planet.data.color1[2], planet.data.color1[3])
+    love.graphics.setColor(255, 255, 255)
     love.graphics.draw(planet_image,
       planet.data.x, planet.data.y,
       0,
       sx,sy,
       planet_image:getWidth()/2,planet_image:getHeight()/2)
-
-
-    love.graphics.setColor(planet.data.color1[1], planet.data.color1[2], planet.data.color1[3])
-    love.graphics.circle("line", planet.data.x, planet.data.y, 2.2*planet.data.size_par)
-    love.graphics.setColor(planet.data.color2[1], planet.data.color2[2], planet.data.color2[3])
-    love.graphics.circle("line", planet.data.x, planet.data.y, 3*planet.data.size_par)
-    love.graphics.setColor(planet.data.color3[1], planet.data.color3[2], planet.data.color3[3])
-    love.graphics.circle("line", planet.data.x, planet.data.y, 4*planet.data.size_par)
+    love.graphics.setColor(planet.data.color3[1], planet.data.color3[2], planet.data.color3[3],20)
+    love.graphics.circle("fill", planet.data.x, planet.data.y, 4 * (radius_add + planet.data.size_par))
+    love.graphics.setColor(planet.data.color2[1], planet.data.color2[2], planet.data.color2[3],10)
+    love.graphics.circle("fill", planet.data.x, planet.data.y, 3 * (radius_add + planet.data.size_par))
+    love.graphics.setColor(planet.data.color1[1], planet.data.color1[2], planet.data.color1[3],10)
+    love.graphics.circle("fill", planet.data.x, planet.data.y, 2.2 * (radius_add + planet.data.size_par))
   end
 end
 

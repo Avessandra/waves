@@ -20,7 +20,7 @@ function love.update( dt )
 
 	world:update(dt)
 	atmossystem.update(dt)
-	planets.update(cam_speed)
+	planets.update(dt, cam_speed)
 	background.update(cam_speed)
 	narwhal.update(dt, planets, cam_speed)
 end
