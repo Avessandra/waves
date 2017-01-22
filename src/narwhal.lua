@@ -33,11 +33,11 @@ function narwhal.update(dt, planets, cam_speed)
     end
 
     if love.keyboard.isDown("down") or love.keyboard.isDown("s") then
-				velocity = velocity:rotate(rotspeed*dt)
+				velocity = velocity:rotate(rotspeed * velocity:length()/200 * dt)
     end
 
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
-				velocity = velocity:rotate(-rotspeed*dt)
+				velocity = velocity:rotate(- rotspeed * velocity:length()/200 * dt)
    	end
     if position.y < -20 or position.y > love.graphics.getHeight() + 20 or
 			position.x < 0 then
