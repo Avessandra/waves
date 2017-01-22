@@ -21,6 +21,11 @@ function love.update( dt )
 	if love.keyboard.isDown("escape") then
     	love.event.quit()
 	end
+
+	if love.keyboard.isDown("return") and gamestate=="menu" then
+		gamestate="playing"
+	end
+
 	if gamestate=="playing" then
 		difficulty = math.min(difficulty + dt*8, 500)
 		cam_speed = difficulty * dt
@@ -30,8 +35,6 @@ function love.update( dt )
 		planets.update(dt, cam_speed)
 		background.update(cam_speed)
 		narwhal.update(dt, planets, cam_speed)
-	elseif gamestate=="menu" then
-
 	end
 end
 
