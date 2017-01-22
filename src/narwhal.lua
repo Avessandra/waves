@@ -3,6 +3,7 @@ local Vector = require("src/lib/vector")
 local narwhal = {}
 local frames = {}
 local currentFrame
+local score_counter = 1
 local elapsed
 local narwhal_im
 local frameWidth = 512
@@ -70,7 +71,8 @@ function narwhal.update(dt, planets, cam_speed)
 		narwhal.position = narwhal.position + narwhal.velocity * dt - Vector(cam_speed, 0)
 
 	if not dead then
-		score = ("score: " .. dt * 153343)
+		score_counter = (math.floor(score_counter + dt * 1353) + 725)
+		score = ("score: " .. score_counter)
 	else 
 		score = score
 	end
