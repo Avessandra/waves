@@ -1,10 +1,16 @@
 local atmossystem = {}
 pulse = 0
+local musiclist
+local currentMusic = 1
+
 
 function atmossystem.load()
-  --atmossystem.music = love.audio.newSource("assets/bounce.mp3", "static") -- bpm 130
-  --atmossystem.music = love.audio.newSource("assets/bassbeat.mp3", "static") -- bpm 130
-  atmossystem.music = love.audio.newSource("assets/space4.mp3") -- bpm 140
+  local bass = love.audio.newSource("assets/bassbeat.mp3") -- bpm 130
+  local default = love.audio.newSource("assets/space4.mp3") -- bpm 140
+  musiclist = {
+    bass, default
+  }
+  atmossystem.music = musiclist[1]
   atmossystem.music:setLooping(true)
   atmossystem.music:setVolume(0.2)
   atmossystem.music:play()
@@ -35,6 +41,21 @@ function atmossystem.update(dt)
   if pulse > 0 then
     pulse = pulse - 2*dt
   end
+end
+
+function atmossystem.rotateMusic()
+  if currentMusic == 1 then
+    currentMusic = 2
+  else
+    currentMusic = 1
+  end
+  --currentMusic = #musiclist
+  --currentMusic = (1 + ((currentMusic + 1) % #musiclist))
+  atmossystem.music:stop()
+  atmossystem.music = musiclist[currentMusic]
+  atmossystem.music:setLooping(true)
+  atmossystem.music:setVolume(0.2)
+  atmossystem.music:play()
 end
 
 return atmossystem
