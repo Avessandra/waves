@@ -8,6 +8,7 @@ local narwhal_im
 local frameWidth = 512
 local frameHeight = 256
 local rotspeed = 1
+local death = false
 
 
 function narwhal.load()
@@ -22,6 +23,7 @@ end
 
 function narwhal.update(dt, planets, cam_speed)
     elapsed = elapsed + dt
+    score = ("score: " .. dt * 153343)
     if elapsed > (1 / (narwhal.velocity:length() * 0.1)) then
         elapsed = 0
         if currentFrame == 9 then
@@ -40,7 +42,7 @@ function narwhal.update(dt, planets, cam_speed)
    	end
     if narwhal.position.y < -20 or narwhal.position.y > love.graphics.getHeight() + 20 or
 			narwhal.position.x < 0 then
-        love.event.quit()
+        death = not death 
     end
 
 		for _, planet in ipairs(planets.info) do
@@ -67,6 +69,7 @@ end
 function narwhal.draw()
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(narwhal_im, frames[currentFrame], narwhal.position.x, narwhal.position.y, math.rad(-10)+narwhal.velocity:getRadian(), 0.3, 0.3, frameWidth/2, frameHeight/2)
+	love.graphics.print(score, love.graphics.getWidth()*0.9, 50)
 	-- deug circle
 	-- love.graphics.circle("fill", pos_x, pos_y, 2)
 end
