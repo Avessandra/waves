@@ -13,7 +13,7 @@ function planets.load()
   planet1 = love.graphics.newImage('assets/newPlanet1.png')
   planet2 = love.graphics.newImage('assets/newPlanet2.png')
   planet2o = love.graphics.newImage('assets/newPlanet3.png')
-  planet2r = love.graphics.newImage('assets/Planet2Ring.png')
+  planet2r = love.graphics.newImage('assets/newPlanet5.png')
   planet3 = love.graphics.newImage('assets/Planet3Ring.png')
   planet4 = love.graphics.newImage('assets/newPlanet4.png')
   planet_styles = {planet1, planet2, planet2o, planet2r, planet3, planet4}
