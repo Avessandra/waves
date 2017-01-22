@@ -56,7 +56,7 @@ function narwhal.update(dt, planets, cam_speed)
 				local rotation = velocity:normalize():lerp(narwhal_to_planet:normalize(), gravity * 5):getRadian()
 
 				velocity = Vector.from_radians(rotation) * velocity:length()
-				velocity = velocity + gravity * 200
+				velocity = velocity + gravity * 250
 			end
 		end
 
@@ -66,7 +66,10 @@ end
 
 
 function narwhal.draw()
+	love.graphics.setColor(255,255,255)
 	love.graphics.draw(narwhal_im, frames[currentFrame], position.x, position.y, math.rad(-10)+velocity:getRadian(), 0.3, 0.3, frameWidth/2, frameHeight/2)
+	-- deug circle
+	-- love.graphics.circle("fill", pos_x, pos_y, 2)
 end
 
 function lerp(a, b, factor)
@@ -76,7 +79,7 @@ end
 function narwhal.reset()
 	currentFrame = 1
 	elapsed = 0
-	position = Vector(400, 40)
+	position = Vector(200, love.graphics.getWidth()/2)
 	velocity = Vector(200, 0)
 end
 
