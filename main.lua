@@ -38,6 +38,10 @@ function love.update( dt )
 		gamestate="playing"
 	end
 
+	if love.keyboard.isDown("b") and gamestate=="menu" then
+		gamestate="playing"
+	end
+
 	rules_timer = rules_timer + dt
 
 	if rules_timer >= 4 * 60/ atmossystem.bpm then
