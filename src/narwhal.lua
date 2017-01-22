@@ -9,7 +9,7 @@ local rotation
 local velocity
 local frameWidth = 512
 local frameHeight = 256
-local rotspeed = 2
+local rotspeed = 1
 
 function narwhal.load()
 		narwhal.reset()
@@ -40,7 +40,8 @@ function narwhal.update(dt, planets, cam_speed)
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
     	rotation = rotation - rotspeed*dt
    	end
-    if pos_y < -20 or pos_y > (love.graphics.getHeight()-40) then
+    if pos_y < -20 or pos_y > love.graphics.getHeight() + 20 or
+			pos_x < 0 then
         love.event.quit()
     end
 
@@ -56,8 +57,8 @@ function narwhal.update(dt, planets, cam_speed)
 			elseif distance <= planet.data.size_par*4 then
 				local narwhal_grad = math.atan2(narwhal_to_planet.y, narwhal_to_planet.x)
 				local gravity = planet.data.size_par / distance^2
-				rotation = lerp(rotation, narwhal_grad, gravity)
-				velocity = velocity+gravity*50
+				rotation = lerp(rotation, narwhal_grad, gravity * 2)
+				velocity = velocity+gravity*100
 			end
 		end
 
@@ -84,7 +85,7 @@ function narwhal.reset()
 	pos_x = 400
 	pos_y = 40
 	rotation = 0
-	velocity = 130
+	velocity = 200
 end
 
 return narwhal
