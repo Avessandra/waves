@@ -15,7 +15,7 @@ function love.load()
 end
 
 function love.update( dt )
-	difficulty = difficulty + dt/10
+	difficulty = math.min(difficulty + dt*8, 500)
 	cam_speed = difficulty * dt
 
 	world:update(dt)
