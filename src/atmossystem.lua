@@ -2,13 +2,14 @@ local atmossystem = {}
 pulse = 0
 
 function atmossystem.load()
-  atmossystem.music = love.audio.newSource("assets/bassbeat.mp3", "static") -- bpm 130
-  --atmossystem.music = love.audio.newSource("assets/space3.mp3") -- bpm 140
+  --atmossystem.music = love.audio.newSource("assets/bounce.mp3", "static") -- bpm 130
+  --atmossystem.music = love.audio.newSource("assets/bassbeat.mp3", "static") -- bpm 130
+  atmossystem.music = love.audio.newSource("assets/space4.mp3") -- bpm 140
   atmossystem.music:setLooping(true)
   atmossystem.music:setVolume(0.2)
   atmossystem.music:play()
 
-  atmossystem.bpm = 130
+  atmossystem.bpm = 140
   atmossystem.timer = 0
   atmossystem.cooldown = 0
 
@@ -21,7 +22,7 @@ function atmossystem.update(dt)
   atmossystem.colortable.b = 128*(1+(math.sin(4+love.timer.getTime())))
   atmossystem.timer = atmossystem.timer + dt
   atmossystem.cooldown = atmossystem.cooldown - dt
-  if atmossystem.timer > 60/130 then
+  if atmossystem.timer > 60/atmossystem.bpm then
     love.graphics.setColor(atmossystem.colortable.r, atmossystem.colortable.g, atmossystem.colortable.b)
 
     atmossystem.timer = 0
@@ -32,7 +33,7 @@ function atmossystem.update(dt)
     love.graphics.setColor(235, 255, 255)
   end
   if pulse > 0 then
-    pulse = pulse - dt
+    pulse = pulse - 2*dt
   end
 end
 

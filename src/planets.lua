@@ -85,11 +85,11 @@ function planets.draw()
       0,
       sx,sy,
       planet_image:getWidth()/2,planet_image:getHeight()/2)
-    love.graphics.setColor(planet.data.color3[1], planet.data.color3[2], planet.data.color3[3],20)
+    love.graphics.setColor(planet.data.color3[1], planet.data.color3[2], planet.data.color3[3],9)
     love.graphics.circle("fill", planet.data.x, planet.data.y, 4 * (radius_add + planet.data.size_par))
-    love.graphics.setColor(planet.data.color2[1], planet.data.color2[2], planet.data.color2[3],10)
+    love.graphics.setColor(planet.data.color2[1], planet.data.color2[2], planet.data.color2[3],8)
     love.graphics.circle("fill", planet.data.x, planet.data.y, 3 * (radius_add + planet.data.size_par))
-    love.graphics.setColor(planet.data.color1[1], planet.data.color1[2], planet.data.color1[3],10)
+    love.graphics.setColor(planet.data.color1[1], planet.data.color1[2], planet.data.color1[3],7)
     love.graphics.circle("fill", planet.data.x, planet.data.y, 2.2 * (radius_add + planet.data.size_par))
   end
 end
