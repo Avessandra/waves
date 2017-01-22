@@ -24,7 +24,6 @@ end
 function narwhal.update(dt, planets, cam_speed)
 		if dead then return end
     elapsed = elapsed + dt
-    score = ("score: " .. dt * 153343)
     if elapsed > (1 / (narwhal.velocity:length() * 0.01)) then
         elapsed = 0
         if currentFrame == 9 then
@@ -65,6 +64,12 @@ function narwhal.update(dt, planets, cam_speed)
 
 		narwhal.velocity = narwhal.velocity - narwhal.velocity * 0.08 * dt
 		narwhal.position = narwhal.position + narwhal.velocity * dt - Vector(cam_speed, 0)
+
+	if not dead then
+		score = ("score: " .. dt * 153343)
+	else 
+		score = score
+	end
 end
 
 
@@ -76,7 +81,7 @@ function narwhal.draw()
 	love.graphics.setColor(255,255,255)
 	local scale = 0.3 + pulse/8
 	love.graphics.draw(narwhal_im, frames[currentFrame], narwhal.position.x, narwhal.position.y, math.rad(-10)+narwhal.velocity:getRadian(), scale, scale, frameWidth/2, frameHeight/2)
-	love.graphics.print(score, love.graphics.getWidth()*0.9, 50)
+	love.graphics.print(score, love.graphics.getWidth()*0.8, 50)
 	-- deug circle
 	-- love.graphics.circle("fill", pos_x, pos_y, 2)
 end
