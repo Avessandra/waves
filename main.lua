@@ -11,6 +11,8 @@ local rules_timer = 0
 local current_rule = 1
 
 function love.load()
+  math.randomseed(os.time())
+  
 	world = love.physics.newWorld(0, 0, true)
 	planets.load()
 	narwhal.load()

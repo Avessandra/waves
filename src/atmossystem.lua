@@ -1,7 +1,7 @@
 local atmossystem = {}
 pulse = 0
 local musiclist
-local currentMusic = 1
+local currentMusic
 
 
 function atmossystem.load()
@@ -10,10 +10,8 @@ function atmossystem.load()
   musiclist = {
     alt, default
   }
-  atmossystem.music = musiclist[1]
-  atmossystem.music:setLooping(true)
-  atmossystem.music:setVolume(0.4)
-  atmossystem.music:play()
+  currentMusic = math.random(#musiclist)
+  atmossystem.rotateMusic()
 
   atmossystem.bpm = 140
   atmossystem.timer = 0
@@ -44,17 +42,13 @@ function atmossystem.update(dt)
 end
 
 function atmossystem.rotateMusic()
-  if currentMusic == 1 then
-    currentMusic = 2
-  else
-    currentMusic = 1
-  end
-  --currentMusic = #musiclist
-  --currentMusic = (1 + ((currentMusic + 1) % #musiclist))
-  atmossystem.music:stop()
+  currentMusic = currentMusic + 1
+  if currentMusic > #musiclist then currentMusic = 1 end
+
+  if atmossystem.music then atmossystem.music:stop() end
   atmossystem.music = musiclist[currentMusic]
   atmossystem.music:setLooping(true)
-  atmossystem.music:setVolume(0.2)
+  atmossystem.music:setVolume(0.4)
   atmossystem.music:play()
 end
 
