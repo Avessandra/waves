@@ -14,6 +14,7 @@ dead = false
 function narwhal.load()
 		narwhal.reset()
 	 	narwhal_im = love.graphics.newImage('assets/nwm.png')
+		narwhal_part = love.graphics.newImage("assets/particle.png")
 	  local imageWidth = narwhal_im:getWidth()
 	  local imageHeight = narwhal_im:getHeight()
 		for i = 0, 8 do
@@ -22,7 +23,10 @@ function narwhal.load()
 end
 
 function narwhal.update(dt, planets, cam_speed)
-		if dead then return end
+		if dead then
+			psystem:update(dt)
+			return
+		end
     elapsed = elapsed + dt
     if elapsed > (1 / (narwhal.velocity:length() * 0.01)) then
         elapsed = 0
@@ -43,7 +47,7 @@ function narwhal.update(dt, planets, cam_speed)
 
     if narwhal.position.y < -50 or narwhal.position.y > love.graphics.getHeight() + 50 or
 			narwhal.position.x < -50 then
-        	dead = true
+        	narwhal.death()
     end
 
 		for _, planet in ipairs(planets.info) do
@@ -51,7 +55,7 @@ function narwhal.update(dt, planets, cam_speed)
 			local distance = narwhal_to_planet:length()
 
 			if distance <= planet.data.size_par then
-				dead = true
+				narwhal.death()
 			elseif distance <= planet.data.size_par*5 then
 				local target_angle = narwhal_to_planet:getRadian()
 				local gravity = planet.data.size_par / distance^2
@@ -77,6 +81,8 @@ function narwhal.draw()
 	if dead then
 		love.graphics.setColor(255,255,255)
 		love.graphics.print("GAME OVER", narwhal.position.x, narwhal.position.y, 0, 10, 10)
+		-- Draw the particle system at the center of the game window.
+		love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)
 	end
 	love.graphics.setColor(255,255,255)
 	local scale = 0.3 + pulse/8
@@ -96,6 +102,16 @@ function narwhal.reset()
 	narwhal.position = Vector(200, love.graphics.getWidth()/2)
 	narwhal.velocity = Vector(300, 0)
 	dead = false
+end
+
+function narwhal.death()
+	dead = true
+	psystem = love.graphics.newParticleSystem(narwhal_part, 500)
+	psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
+	psystem:setEmissionRate(5)
+	psystem:setSizeVariation(1)
+	psystem:setLinearAcceleration(-20, -20, 20, 20) -- Random movement in all directions.
+	psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0) -- Fade to transparency.
 end
 
 return narwhal
