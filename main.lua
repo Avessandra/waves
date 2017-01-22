@@ -38,7 +38,6 @@ function love.update( dt )
 		gamestate="playing"
 	end
 
-
 	rules_timer = rules_timer + dt
 
 	if rules_timer >= 4 * 60/ atmossystem.bpm then
@@ -93,9 +92,16 @@ end
 function love.keypressed(key, scancode, isrepeat)
 		if gamestate == "menu" and key == "space" then
 			gamestate = "playing"
-		elseif love.keyboard.isDown("b") and gamestate=="menu" then
+		elseif key == "c" and gamestate=="menu" then
 			atmossystem.rotateMusic()
+		elseif key == "space" then
+			reset()
 		end
+end
+
+function reset()
+	narwhal.reset()
+	difficulty = 100
 end
 
 function button_click(x, y)
