@@ -5,8 +5,10 @@ local atmossystem = require('src/atmossystem')
 
 local difficulty = 100
 local cam_speed = 0
-local logo
-local button
+
+local logo, button, rules
+local rules_timer = 0
+local current_rule = 1
 
 function love.load()
 	world = love.physics.newWorld(0, 0, true)
@@ -18,6 +20,12 @@ function love.load()
 	button = love.graphics.newImage('assets/playBtn.png')
 	beat_change = love.graphics.newImage('assets/beatBtn.png')
 	logo = love.graphics.newImage('assets/logo.png')
+	rules = {
+		love.graphics.newImage('assets/basicRules1.png'),
+		love.graphics.newImage('assets/basicRules2.png'),
+		love.graphics.newImage('assets/basicRules3.png'),
+		love.graphics.newImage('assets/basicRules4.png'),
+	}
 end
 
 function love.update( dt )
@@ -30,6 +38,16 @@ function love.update( dt )
 		gamestate="playing"
 	end
 
+	rules_timer = rules_timer + dt
+
+	if rules_timer > 3 then
+		current_rule = current_rule + 1
+		if current_rule > #rules then current_rule = 1 end
+		rules_timer = 0
+	end
+
+	atmossystem.update(dt)
+
 	if gamestate=="playing" then
 		difficulty = math.min(difficulty + dt * 10, 5000)
 		-- the nearer the player is to the right side of the screen, the more skill he has
@@ -39,7 +57,6 @@ function love.update( dt )
 		cam_speed = (difficulty + player_skill * narwhal.velocity:length() * 2) * dt
 
 		world:update(dt)
-		atmossystem.update(dt)
 		planets.update(dt, cam_speed)
 		background.update(cam_speed)
 		narwhal.update(dt, planets, cam_speed)
@@ -52,12 +69,17 @@ function love.draw()
 		planets.draw()
 		narwhal.draw()
 	elseif gamestate=="menu" then
-		love.graphics.draw(logo, love.graphics.getWidth()/2, love.graphics.getHeight()*1/3,
+		love.graphics.draw(logo, love.graphics.getWidth()/2, love.graphics.getHeight()*1/4,
 			0,
 			1, 1,
 			logo:getWidth()/2, logo:getHeight()/2)
 		love.graphics.draw(button, 100, 100, 0, 0.6)
 		love.graphics.draw(beat_change, 100, 300, 0, 0.5)
+		love.graphics.draw(rules[current_rule], love.graphics.getWidth()/2, love.graphics.getHeight()*2/3,
+			0,
+			1 + pulse/10, 1 + pulse/10,
+			logo:getWidth()/2, logo:getHeight()/2
+		)
 	end
 end
 
