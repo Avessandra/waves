@@ -38,9 +38,6 @@ function love.update( dt )
 		gamestate="playing"
 	end
 
-	if love.keyboard.isDown("b") and gamestate=="menu" then
-		atmossystem.rotateMusic()
-	end
 
 	rules_timer = rules_timer + dt
 
@@ -96,6 +93,8 @@ end
 function love.keypressed(key, scancode, isrepeat)
 		if gamestate == "menu" and key == "space" then
 			gamestate = "playing"
+		elseif love.keyboard.isDown("b") and gamestate=="menu" then
+			atmossystem.rotateMusic()
 		end
 end
 

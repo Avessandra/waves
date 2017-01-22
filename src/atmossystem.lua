@@ -5,14 +5,14 @@ local currentMusic = 1
 
 
 function atmossystem.load()
-  local bass = love.audio.newSource("assets/bassbeat.mp3") -- bpm 130
   local default = love.audio.newSource("assets/space4.mp3") -- bpm 140
+  local alt = love.audio.newSource("assets/space5.mp3")
   musiclist = {
-    bass, default
+    alt, default
   }
   atmossystem.music = musiclist[1]
   atmossystem.music:setLooping(true)
-  atmossystem.music:setVolume(0.2)
+  atmossystem.music:setVolume(0.4)
   atmossystem.music:play()
 
   atmossystem.bpm = 140
