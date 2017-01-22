@@ -5,7 +5,6 @@ local atmossystem = require('src/atmossystem')
 
 local difficulty = 100
 local cam_speed = 0
-
 local logo
 local button
 
@@ -52,15 +51,11 @@ function love.draw()
 		planets.draw()
 		narwhal.draw()
 	elseif gamestate=="menu" then
-<<<<<<< HEAD
-		love.graphics.draw(button, 100, 100, 0, 0.8)
-=======
 		love.graphics.draw(logo, love.graphics.getWidth()/2, love.graphics.getHeight()*1/3,
 			0,
 			1, 1,
 			logo:getWidth()/2, logo:getHeight()/2)
-		love.graphics.draw(button, 200, 200)
->>>>>>> 5a9c9cd7d67bc8054be4dddbd4bdad0c7eada42e
+		love.graphics.draw(button, 100, 100, 0, 0.8)
 	end
 end
 
