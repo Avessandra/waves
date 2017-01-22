@@ -6,6 +6,9 @@ local atmossystem = require('src/atmossystem')
 local difficulty = 100
 local cam_speed = 0
 
+local logo
+local button
+
 function love.load()
 	world = love.physics.newWorld(0, 0, true)
 	planets.load()
@@ -14,6 +17,7 @@ function love.load()
 	atmossystem.load()
 	gamestate = "menu"
 	button = love.graphics.newImage('assets/shitty_play_button.png')
+	logo = love.graphics.newImage('assets/logo.png')
 end
 
 function love.update( dt )
@@ -27,8 +31,12 @@ function love.update( dt )
 	end
 
 	if gamestate=="playing" then
-		difficulty = math.min(difficulty + dt*8, 500)
-		cam_speed = difficulty * dt
+		difficulty = math.min(difficulty + dt * 10, 5000)
+		-- the nearer the player is to the right side of the screen, the more skill he has
+		player_skill = lerp(1, 0,
+			((love.graphics.getWidth() - narwhal.position.x)/love.graphics.getWidth()))^4
+		print(player_skill)
+		cam_speed = (difficulty + player_skill * narwhal.velocity:length() * 2) * dt
 
 		world:update(dt)
 		atmossystem.update(dt)
@@ -44,6 +52,10 @@ function love.draw()
 		planets.draw()
 		narwhal.draw()
 	elseif gamestate=="menu" then
+		love.graphics.draw(logo, love.graphics.getWidth()/2, love.graphics.getHeight()*1/3,
+			0,
+			1, 1,
+			logo:getWidth()/2, logo:getHeight()/2)
 		love.graphics.draw(button, 200, 200)
 	end
 end
