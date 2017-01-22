@@ -12,6 +12,7 @@ clean:
 	rm -rf temp
 
 build: buildclean
+	@zip -q waves.love main.lua conf.lua
 	@zip -q -r -0 waves.love assets/*
 	@cd src/ && zip -q -r ../waves.love *
 

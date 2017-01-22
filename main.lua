@@ -92,7 +92,7 @@ end
 function love.keypressed(key, scancode, isrepeat)
 		if gamestate == "menu" and key == "space" then
 			gamestate = "playing"
-		elseif key == "c" and gamestate=="menu" then
+		elseif key == "b" and gamestate=="menu" then
 			atmossystem.rotateMusic()
 		elseif key == "space" then
 			reset()
