@@ -60,7 +60,7 @@ function planets.new_planet(old_planet)
   else
     return {
       data = {
-        x = 300 + x_new,
+        x = 400 + x_new,
         y = y_new,
         size_par = size_par_new,
         type = type,
