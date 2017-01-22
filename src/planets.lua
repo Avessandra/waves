@@ -14,7 +14,7 @@ function planets.load()
   planet2 = love.graphics.newImage('assets/newPlanet2.png')
   planet2o = love.graphics.newImage('assets/newPlanet3.png')
   planet2r = love.graphics.newImage('assets/newPlanet5.png')
-  planet3 = love.graphics.newImage('assets/Planet3Ring.png')
+  planet3 = love.graphics.newImage('assets/newPlanet6.png')
   planet4 = love.graphics.newImage('assets/newPlanet4.png')
   planet_styles = {planet1, planet2, planet2o, planet2r, planet3, planet4}
   table.insert(planets.info, planets.new_planet(nil))
