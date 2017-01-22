@@ -13,7 +13,7 @@ function love.load()
 	background.load()
 	atmossystem.load()
 	gamestate = "menu"
-	button = love.graphics.newImage('assets/shitty_play_button.png')
+	button = love.graphics.newImage('assets/playBtn.png')
 end
 
 function love.update( dt )
@@ -44,7 +44,7 @@ function love.draw()
 		planets.draw()
 		narwhal.draw()
 	elseif gamestate=="menu" then
-		love.graphics.draw(button, 200, 200)
+		love.graphics.draw(button, 100, 100, 0, 0.8)
 	end
 end
 
@@ -60,10 +60,9 @@ function love.keypressed(key, scancode, isrepeat)
 		end
 end
 
-
 function button_click(x, y)
-	if x > 200 and x < (200 + button:getWidth())
-	and y > 200 and y < (200 + button:getHeight()) then
+	if x > 100 and x < (100 + (button:getWidth()/0.8))
+	and y > 100 and y < (100 + (button:getHeight()/0.8)) then
 		gamestate = "playing"
 	end
 end
