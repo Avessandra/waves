@@ -2,31 +2,33 @@
 
 default: build run
 
+NAME=space_narcade
+
 buildclean:
-	rm -f waves.love
+	rm -f $(NAME).love
 
 clean:
-	rm -f waves.love
+	rm -f $(NAME).love
 	rm -rf pkg
 	rm -rf lib
 	rm -rf temp
 
 build: buildclean
-	@zip -q waves.love main.lua conf.lua
-	@zip -q -r -0 waves.love assets/*
-	@cd src/ && zip -q -r ../waves.love *
+	@zip -q $(NAME).love main.lua conf.lua
+	@zip -q -r -0 $(NAME).love assets/*
+	@cd src/ && zip -q -r ../$(NAME).love *
 
 build-fast:
-	@zip -q -r -0 waves.love assets/*
+	@zip -q -r -0 $(NAME).love assets/*
 	@./script/fast.sh
-	@cd temp/ && zip -q -r ../waves.love *
+	@cd temp/ && zip -q -r ../$(NAME).love *
 	@rm -rf temp
 
 fast: build-fast
-	@love waves.love
+	@love $(NAME).love
 
 run:
-	@love waves.love
+	@love $(NAME).love
 
 setup:
 	git submodule update --init --recursive
