@@ -44,8 +44,7 @@ function love.update( dt )
 	rules_timer = rules_timer + dt
 
 	if rules_timer >= 4 * 60 / atmossystem.bpm then
-		current_rule = current_rule + 1
-		if current_rule > #rules then current_rule = 1 end
+		current_rule = (current_rule % #rules) + 1
 		rules_timer = 0
 	end
 

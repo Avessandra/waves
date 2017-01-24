@@ -35,8 +35,7 @@ function atmossystem.update(dt)
 end
 
 function atmossystem.rotateMusic()
-  currentMusic = currentMusic + 1
-  if currentMusic > #musiclist then currentMusic = 1 end
+  currentMusic = (currentMusic % #musiclist) + 1
 
   if atmossystem.music then atmossystem.music:stop() end
   atmossystem.timer = 0
