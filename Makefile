@@ -16,7 +16,7 @@ clean:
 build: buildclean
 	@zip -q $(NAME).love main.lua conf.lua
 	@zip -q -r -0 $(NAME).love assets/*
-	@cd src/ && zip -q -r ../$(NAME).love *
+	@zip -q -r $(NAME).love src/*
 
 build-fast:
 	@zip -q -r -0 $(NAME).love assets/*
