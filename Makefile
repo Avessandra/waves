@@ -49,3 +49,6 @@ subupdate:
 	git submodule foreach git pull origin master
 
 package: build package-linux package-windows package-mac
+
+zip: package
+	cd pkg && zip -q -r space_narcade.zip ./*
