@@ -23,14 +23,17 @@ end
 
 function planets.update(dt, speed)
   for index, planet in ipairs(planets.info) do
-    --planet.data.size_par = planet.data.size_par + math.cos(pulse) * 30 * dt
+    -- planet.data.size_par = planet.data.size_par + math.cos(pulse) * 30 * dt
   end
   for i = 1, planets.counter do
     planets.info[i].data.x = planets.info[i].data.x - speed
   end
   local last_planet = planets.info[planets.counter]
   if last_planet.data.x <= love.graphics.getWidth() then
-    table.insert(planets.info, planets.new_planet(last_planet))
+    local new_planet = planets.new_planet(last_planet)
+    if new_planet ~= nil then
+      table.insert(planets.info, new_planet)
+    end
     planets.counter = planets.counter + 1
   end
 end
@@ -43,9 +46,12 @@ function planets.new_planet(old_planet)
   local type = love.math.random(1,#planet_styles)
 
   if old_planet ~= nil then
-    while math.sqrt(x_new^2 + (y_new - old_planet.data.y)^2) < (size_par_new + old_planet.data.size_par)*4 do
+    local tries = 0;
+    while math.sqrt(x_new^2 + (y_new - old_planet.data.y)^2) < (size_par_new + old_planet.data.size_par)*4 and
+      tries < 10 do
           y_new = love.math.random(0, love.graphics.getHeight())
     end
+    if tries == 10 then return end
     return {
       data = {
         x = old_planet.data.x + x_new,
