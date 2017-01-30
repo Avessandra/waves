@@ -1,6 +1,6 @@
 .PHONY: default clean build run lib getwindowlib getmaclib package-linux package-windows package-mac package
 
-default: build run
+default: run
 
 NAME=space_narcade
 
@@ -13,10 +13,12 @@ clean:
 	rm -rf lib
 	rm -rf temp
 
-build: buildclean
+$(NAME).love: buildclean
 	@zip -q $(NAME).love main.lua conf.lua
 	@zip -q -r -0 $(NAME).love assets/*
 	@zip -q -r $(NAME).love src/*
+
+build: $(NAME).love
 
 build-fast:
 	@zip -q -r -0 $(NAME).love assets/*
@@ -27,7 +29,7 @@ build-fast:
 fast: build-fast
 	@love $(NAME).love
 
-run:
+run: $(NAME).love
 	@love $(NAME).love
 
 setup:
